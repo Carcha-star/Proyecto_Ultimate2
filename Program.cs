@@ -749,45 +749,47 @@ new Capitan
 };
 
 MostrarMenuGrupos(capitanes);
+
 static void MostrarMenuGrupos(Capitan[] capitanes)
 {
     int opcion;
-
     do
     {
         Console.Clear();
 
-        Console.WriteLine("=====================================");
-        Console.WriteLine("       RADAR DEL CAPITÁN FIFA");
-        Console.WriteLine("=====================================");
+        string m = "";
+        try { m = new string(' ', Math.Max(0, (Console.WindowWidth - 30) / 2)); } catch { m = "                    "; }
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine(m + "╔═════════════════════════════════════╗");
+        Console.WriteLine(m + "║       RADAR DEL CAPITÁN FIFA        ║");
+        Console.WriteLine(m + "╚═════════════════════════════════════╝");
+        Console.ResetColor();
         Console.WriteLine();
 
-        Console.WriteLine("1. Grupo A");
-        Console.WriteLine("2. Grupo B");
-        Console.WriteLine("3. Grupo C");
-        Console.WriteLine("4. Grupo D");
-        Console.WriteLine("5. Grupo E");
-        Console.WriteLine("6. Grupo F");
-        Console.WriteLine("7. Grupo G");
-        Console.WriteLine("8. Grupo H");
-        Console.WriteLine("9. Grupo I");
-        Console.WriteLine("10. Grupo J");
-        Console.WriteLine("11. Grupo K");
-        Console.WriteLine("12. Grupo L");
+        Console.WriteLine(m + "  1. Grupo A         7. Grupo G");
+        Console.WriteLine(m + "  2. Grupo B         8. Grupo H");
+        Console.WriteLine(m + "  3. Grupo C         9. Grupo I");
+        Console.WriteLine(m + "  4. Grupo D        10. Grupo J");
+        Console.WriteLine(m + "  5. Grupo E        11. Grupo K");
+        Console.WriteLine(m + "  6. Grupo F        12. Grupo L");
         Console.WriteLine();
-        Console.WriteLine("99. Comparar capitanes");
-        Console.WriteLine("0. Salir");
+
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine(m + " 99. Comparar capitanes");
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine(m + "  0. Salir");
+        Console.ResetColor();
         Console.WriteLine();
-        Console.Write("Seleccione una opción: ");
+        Console.Write(m + "Seleccione una opción: ");
 
         try
         {
             string entrada = Console.ReadLine();
-
             if (entrada == "00" || entrada == "-0")
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nError: esa opción no es válida.");
+                Console.WriteLine("\n" + m + "[!] Error: esa opción no es válida.");
                 Console.ResetColor();
                 Console.ReadKey();
                 opcion = -1;
@@ -800,7 +802,7 @@ static void MostrarMenuGrupos(Capitan[] capitanes)
         catch (FormatException)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nError: debe ingresar un número.");
+            Console.WriteLine("\n" + m + "[!] Error: debe ingresar un número.");
             Console.ResetColor();
             Console.ReadKey();
             opcion = -1;
@@ -808,7 +810,7 @@ static void MostrarMenuGrupos(Capitan[] capitanes)
         catch (OverflowException)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nNúmero fuera de rango.");
+            Console.WriteLine("\n" + m + "[!] Número fuera de rango.");
             Console.ResetColor();
             Console.ReadKey();
             opcion = -1;
@@ -826,7 +828,7 @@ static void MostrarMenuGrupos(Capitan[] capitanes)
         else if (opcion != 0)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\nOpción no válida.");
+            Console.WriteLine("\n" + m + "[!] Opción no válida.");
             Console.ResetColor();
             Console.ReadKey();
         }
@@ -837,39 +839,41 @@ static void MostrarMenuGrupos(Capitan[] capitanes)
 static void MostrarSeleccionesPorGrupo(Capitan[] capitanes, string grupo)
 {
     int opcion;
-
     do
     {
         Console.Clear();
 
-        Console.WriteLine("=====================================");
-        Console.WriteLine($"              GRUPO {grupo}");
-        Console.WriteLine("=====================================");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("╔═════════════════════════════════════╗");
+        Console.WriteLine($"║              GRUPO {grupo}                ║");
+        Console.WriteLine("╚═════════════════════════════════════╝");
+        Console.ResetColor();
         Console.WriteLine();
 
         int contador = 1;
-
         for (int i = 0; i < capitanes.Length; i++)
         {
             if (capitanes[i].Grupo == grupo)
             {
-                Console.WriteLine($"{contador}. {capitanes[i].Seleccion}");
+                Console.WriteLine($"  {contador}. {capitanes[i].Seleccion}");
                 contador++;
             }
         }
 
-        Console.WriteLine("0. Volver");
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine("  0. Volver");
+        Console.ResetColor();
         Console.WriteLine();
         Console.Write("Seleccione una selección: ");
 
         try
         {
             string entrada = Console.ReadLine();
-
             if (entrada == "00" || entrada == "-0")
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nError: esa opción no es válida.");
+                Console.WriteLine("\n[!] Error: esa opción no es válida.");
                 Console.ResetColor();
                 Console.ReadKey();
                 opcion = -1;
@@ -882,7 +886,7 @@ static void MostrarSeleccionesPorGrupo(Capitan[] capitanes, string grupo)
         catch (FormatException)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nError: debe ingresar un número.");
+            Console.WriteLine("\n[!] Error: debe ingresar un número.");
             Console.ResetColor();
             Console.ReadKey();
             opcion = -1;
@@ -890,7 +894,7 @@ static void MostrarSeleccionesPorGrupo(Capitan[] capitanes, string grupo)
         catch (OverflowException)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nNúmero fuera de rango.");
+            Console.WriteLine("\n[!] Número fuera de rango.");
             Console.ResetColor();
             Console.ReadKey();
             opcion = -1;
@@ -904,7 +908,6 @@ static void MostrarSeleccionesPorGrupo(Capitan[] capitanes, string grupo)
         if (opcion >= 1 && opcion < contador)
         {
             int contadorBusqueda = 1;
-
             for (int i = 0; i < capitanes.Length; i++)
             {
                 if (capitanes[i].Grupo == grupo)
@@ -914,7 +917,6 @@ static void MostrarSeleccionesPorGrupo(Capitan[] capitanes, string grupo)
                         MostrarInformacion(capitanes[i]);
                         break;
                     }
-
                     contadorBusqueda++;
                 }
             }
@@ -922,7 +924,7 @@ static void MostrarSeleccionesPorGrupo(Capitan[] capitanes, string grupo)
         else
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\nOpción no válida.");
+            Console.WriteLine("\n[!] Opción no válida.");
             Console.ResetColor();
             Console.ReadKey();
         }
@@ -937,38 +939,49 @@ static void MostrarInformacion(Capitan capitan)
     do
     {
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("╔═════════════════════════════════════╗");
+        Console.WriteLine("║      INFORMACIÓN DEL CAPITÁN        ║");
+        Console.WriteLine("╚═════════════════════════════════════╝");
+        Console.ResetColor();
 
-        Console.WriteLine("=====================================");
-        Console.WriteLine("      INFORMACIÓN DEL CAPITÁN");
-        Console.WriteLine("=====================================");
-        Console.WriteLine($"Grupo     : {capitan.Grupo}");
-        Console.WriteLine($"Selección : {capitan.Seleccion}");
-        Console.WriteLine($"Capitán   : {capitan.Nombre}");
-        Console.WriteLine("=====================================");
+        Console.WriteLine($"  Grupo     : {capitan.Grupo}");
+        Console.WriteLine($"  Selección : {capitan.Seleccion}");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"  Capitán   : {capitan.Nombre}");
+        Console.ResetColor();
 
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine("───────────────────────────────────────");
+        Console.ResetColor();
+        Console.WriteLine("¿Qué estadística desea ver?\n");
+
+        Console.WriteLine("  1. Edad");
+        Console.WriteLine("  2. Goles con la selección");
+        Console.WriteLine("  3. Club actual");
+        Console.WriteLine("  4. Partidos");
+        Console.WriteLine("  5. Asistencias");
+        Console.WriteLine("  6. Titulos");
+        Console.WriteLine("  7. Posición");
+        Console.WriteLine("  8. Trayectoria");
         Console.WriteLine();
-        Console.WriteLine("¿Qué estadística desea ver?");
-        Console.WriteLine("1. Edad");
-        Console.WriteLine("2. Goles con la selección");
-        Console.WriteLine("3. Club actual");
-        Console.WriteLine("4. Partidos");
-        Console.WriteLine("5. Asistencias");
-        Console.WriteLine("6. Titulos");
-        Console.WriteLine("7. Posición");
-        Console.WriteLine("8. Trayectoria");
-        Console.WriteLine("9. Ver todo");
-        Console.WriteLine("0. Volver");
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("  9. Ver todo detallado");
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine("  0. Volver");
+        Console.ResetColor();
+
         Console.WriteLine();
         Console.Write("Seleccione una opción: ");
 
         try
         {
             string entrada = Console.ReadLine();
-
             if (entrada == "00" || entrada == "-0")
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nError: esa opción no es válida.");
+                Console.WriteLine("\n[!] Error: esa opción no es válida.");
                 Console.ResetColor();
                 Console.ReadKey();
                 opcion = -1;
@@ -981,7 +994,7 @@ static void MostrarInformacion(Capitan capitan)
         catch (FormatException)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nError: Debe ingresar un número.");
+            Console.WriteLine("\n[!] Error: Debe ingresar un número.");
             Console.ResetColor();
             Console.ReadKey();
             opcion = -1;
@@ -989,71 +1002,73 @@ static void MostrarInformacion(Capitan capitan)
         catch (OverflowException)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nNúmero fuera de rango.");
+            Console.WriteLine("\n[!] Número fuera de rango.");
             Console.ResetColor();
             Console.ReadKey();
             opcion = -1;
         }
 
         Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.White;
 
         switch (opcion)
         {
             case 1:
-                Console.WriteLine($"Edad: {capitan.Edad} años");
+                Console.WriteLine($"► Edad: {capitan.Edad} años");
                 break;
-
             case 2:
-                Console.WriteLine($"Goles con selección: {capitan.Goles}");
+                Console.WriteLine($"► Goles con selección: {capitan.Goles}");
                 break;
-
             case 3:
-                Console.WriteLine($"Club actual: {capitan.ClubActual}");
+                Console.WriteLine($"► Club actual: {capitan.ClubActual}");
                 break;
-
             case 4:
-                Console.WriteLine($"Partidos jugados: {capitan.Partidos}");
+                Console.WriteLine($"► Partidos jugados: {capitan.Partidos}");
                 break;
-
             case 5:
-                Console.WriteLine($"Asistencias: {capitan.Asistencias}");
+                Console.WriteLine($"► Asistencias: {capitan.Asistencias}");
                 break;
             case 6:
-                Console.WriteLine($"Títulos: {capitan.Titulos}");
+                Console.WriteLine($"► Títulos: {capitan.Titulos}");
                 break;
             case 7:
-                Console.WriteLine($"Posición: {capitan.Posicion}");
+                Console.WriteLine($"► Posición: {capitan.Posicion}");
                 break;
             case 8:
-                Console.WriteLine($"Trayectoria: {capitan.Trayectoria}");
+                Console.WriteLine($"► Trayectoria: {capitan.Trayectoria}");
                 break;
             case 9:
-                Console.WriteLine($"Grupo        : {capitan.Grupo}");
-                Console.WriteLine($"Selección    : {capitan.Seleccion}");
-                Console.WriteLine($"Capitán      : {capitan.Nombre}");
-                Console.WriteLine($"Edad         : {capitan.Edad} años");
-                Console.WriteLine($"Goles        : {capitan.Goles}");
-                Console.WriteLine($"Club Actual  : {capitan.ClubActual}");
-                Console.WriteLine($"Partidos     : {capitan.Partidos}");
-                Console.WriteLine($"Asistencias  : {capitan.Asistencias}");
-                Console.WriteLine($"Títulos      : {capitan.Titulos}");
-                Console.WriteLine($"Posición     : {capitan.Posicion}");
-                Console.WriteLine($"Trayectoria  : {capitan.Trayectoria}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("================ RESUMEN ================");
+                Console.ResetColor();
+                Console.WriteLine($"  Grupo        : {capitan.Grupo}");
+                Console.WriteLine($"  Selección    : {capitan.Seleccion}");
+                Console.WriteLine($"  Capitán      : {capitan.Nombre}");
+                Console.WriteLine($"  Edad         : {capitan.Edad} años");
+                Console.WriteLine($"  Goles        : {capitan.Goles}");
+                Console.WriteLine($"  Club Actual  : {capitan.ClubActual}");
+                Console.WriteLine($"  Partidos     : {capitan.Partidos}");
+                Console.WriteLine($"  Asistencias  : {capitan.Asistencias}");
+                Console.WriteLine($"  Títulos      : {capitan.Titulos}");
+                Console.WriteLine($"  Posición     : {capitan.Posicion}");
+                Console.WriteLine($"  Trayectoria  : {capitan.Trayectoria}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("=========================================");
+                Console.ResetColor();
                 break;
             case 0:
                 return;
-
             default:
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Opción no válida.");
+                Console.WriteLine("[!] Opción no válida.");
                 Console.ResetColor();
                 break;
         }
 
+        Console.ResetColor();
         Console.WriteLine();
         Console.Write("Presione una tecla para continuar...");
         Console.ReadKey();
-
     } while (opcion != 0);
 }
 
@@ -1061,51 +1076,46 @@ static void CompararCapitanes(Capitan[] capitanes)
 {
     int opcion1;
     int opcion2;
-
     do
     {
         Console.Clear();
-        Console.WriteLine("=====================================");
-        Console.WriteLine("          COMPARAR CAPITANES");
-        Console.WriteLine("=====================================");
-        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("╔═════════════════════════════════════╗");
+        Console.WriteLine("║         COMPARAR CAPITANES          ║");
+        Console.WriteLine("╚═════════════════════════════════════╝");
+        Console.ResetColor();
 
         string grupoActual = "";
-
         for (int i = 0; i < capitanes.Length; i++)
         {
             if (grupoActual != capitanes[i].Grupo)
             {
                 grupoActual = capitanes[i].Grupo;
                 Console.WriteLine();
-                Console.WriteLine($"========== GRUPO {grupoActual} ==========");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"────── GRUPO {grupoActual} ──────");
+                Console.ResetColor();
             }
 
-            Console.WriteLine($"{i + 1}. {capitanes[i].Nombre} - {capitanes[i].Seleccion}");
+            Console.WriteLine($"  {i + 1,2}. {capitanes[i].Nombre,-20} - {capitanes[i].Seleccion}");
         }
 
         Console.WriteLine();
-        Console.WriteLine("0. Volver");
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine("  0. Volver");
+        Console.ResetColor();
         Console.WriteLine();
 
         opcion1 = LeerNumero("Seleccione el primer capitán: ");
-
-        if (opcion1 == 0)
-        {
-            return;
-        }
+        if (opcion1 == 0) return;
 
         opcion2 = LeerNumero("Seleccione el segundo capitán: ");
-
-        if (opcion2 == 0)
-        {
-            return;
-        }
+        if (opcion2 == 0) return;
 
         if (opcion1 < 1 || opcion1 > capitanes.Length || opcion2 < 1 || opcion2 > capitanes.Length)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\nUna de las opciones está fuera del rango permitido.");
+            Console.WriteLine("\n[!] Una de las opciones está fuera del rango permitido.");
             Console.ResetColor();
             Console.ReadKey();
             continue;
@@ -1114,23 +1124,20 @@ static void CompararCapitanes(Capitan[] capitanes)
         if (opcion1 == opcion2)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\nDebe seleccionar dos capitanes diferentes.");
+            Console.WriteLine("\n[!] Debe seleccionar dos capitanes diferentes.");
             Console.ResetColor();
             Console.ReadKey();
             continue;
         }
 
         MostrarComparacion(capitanes[opcion1 - 1], capitanes[opcion2 - 1]);
-
     } while (true);
 }
 
 static int LeerNumero(string mensaje)
 {
     int numero;
-
     Console.Write(mensaje);
-
     try
     {
         numero = Convert.ToInt32(Console.ReadLine());
@@ -1138,7 +1145,7 @@ static int LeerNumero(string mensaje)
     catch (FormatException)
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\nError: debe ingresar un número.");
+        Console.WriteLine("\n[!] Error: debe ingresar un número.");
         Console.ResetColor();
         Console.ReadKey();
         return -1;
@@ -1146,12 +1153,11 @@ static int LeerNumero(string mensaje)
     catch (OverflowException)
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\nNúmero fuera de rango.");
+        Console.WriteLine("\n[!] Número fuera de rango.");
         Console.ResetColor();
         Console.ReadKey();
         return -1;
     }
-
     return numero;
 }
 
@@ -1159,20 +1165,24 @@ static void MostrarComparacion(Capitan c1, Capitan c2)
 {
     Console.Clear();
 
-    Console.WriteLine("=====================================");
-    Console.WriteLine("        COMPARACIÓN DE CAPITANES");
-    Console.WriteLine("=====================================");
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.WriteLine("╔═════════════════════════════════════════════════════╗");
+    Console.WriteLine("║              COMPARACIÓN DE CAPITANES               ║");
+    Console.WriteLine("╚═════════════════════════════════════════════════════╝");
     Console.WriteLine();
 
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine($"{c1.Nombre} ({c1.Seleccion})  VS  {c2.Nombre} ({c2.Seleccion})");
+    Console.WriteLine($"  {c1.Nombre} ({c1.Seleccion})   VS   {c2.Nombre} ({c2.Seleccion})");
     Console.ResetColor();
     Console.WriteLine();
 
-    Console.WriteLine($"Grupo        : {c1.Grupo,-15} | {c2.Grupo}");
-    Console.WriteLine($"Club actual  : {c1.ClubActual,-15} | {c2.ClubActual}");
-    Console.WriteLine($"Posición     : {c1.Posicion,-15} | {c2.Posicion}");
-    Console.WriteLine("-------------------------------------");
+    Console.WriteLine($"  Grupo        : {c1.Grupo,-15} | {c2.Grupo}");
+    Console.WriteLine($"  Club actual  : {c1.ClubActual,-15} | {c2.ClubActual}");
+    Console.WriteLine($"  Posición     : {c1.Posicion,-15} | {c2.Posicion}");
+
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.WriteLine("  ───────────────────────────────────────────────────");
+    Console.ResetColor();
 
     CompararDato("Edad", c1.Edad, c2.Edad, c1.Nombre, c2.Nombre, false);
     CompararDato("Goles", c1.Goles, c2.Goles, c1.Nombre, c2.Nombre, true);
@@ -1180,11 +1190,13 @@ static void MostrarComparacion(Capitan c1, Capitan c2)
     CompararDato("Asistencias", c1.Asistencias, c2.Asistencias, c1.Nombre, c2.Nombre, true);
     CompararDato("Títulos", c1.Titulos, c2.Titulos, c1.Nombre, c2.Nombre, true);
 
-    Console.WriteLine("-------------------------------------");
-    Console.WriteLine();
-    Console.WriteLine("Trayectoria:");
-    Console.WriteLine($"- {c1.Nombre}: {c1.Trayectoria}");
-    Console.WriteLine($"- {c2.Nombre}: {c2.Trayectoria}");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.WriteLine("  ───────────────────────────────────────────────────");
+    Console.ResetColor();
+
+    Console.WriteLine("\n  Trayectoria:");
+    Console.WriteLine($"  ► {c1.Nombre}: {c1.Trayectoria}");
+    Console.WriteLine($"  ► {c2.Nombre}: {c2.Trayectoria}");
 
     Console.WriteLine();
     Console.Write("Presione una tecla para volver...");
@@ -1194,7 +1206,6 @@ static void MostrarComparacion(Capitan c1, Capitan c2)
 static void CompararDato(string titulo, int valor1, int valor2, string nombre1, string nombre2, bool mayorEsMejor)
 {
     string ganador;
-
     if (valor1 == valor2)
     {
         ganador = "Empate";
@@ -1208,7 +1219,19 @@ static void CompararDato(string titulo, int valor1, int valor2, string nombre1, 
         ganador = valor1 < valor2 ? nombre1 : nombre2;
     }
 
-    Console.WriteLine($"{titulo,-12}: {valor1,-5} | {valor2,-5}  Ganador: {ganador}");
+    Console.Write($"  {titulo,-12}: {valor1,-15} | {valor2,-10} ");
+
+    if (ganador == "Empate")
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"[Ganador: {ganador}]");
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"[Ganador: {ganador}]");
+    }
+    Console.ResetColor();
 }
 
 public struct Capitan
@@ -1219,12 +1242,9 @@ public struct Capitan
     public int Goles;
     public string ClubActual;
     public string Seleccion;
-
-
     public int Partidos;
     public int Asistencias;
-    public int Titulos;     
+    public int Titulos;
     public string Posicion;
     public string Trayectoria;
-
 }
